@@ -44,22 +44,18 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Login Sistem</h1>
                                     </div>
-                                    <form class="user">
+                                    <form method="post" action="<?= base_url()?>login" class="user">
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
+                                            <input type="text" name="username" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                                placeholder="Enter Username...">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
+                                            <input type="password" name="password" class="form-control form-control-user"
                                                 id="exampleInputPassword" placeholder="Password">
                                         </div>
                                         
-                                        <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                            Login
-                                        </a>
-                                        <hr>
-                                        
+										<button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
                                     </form>
                                     
                                 </div>
