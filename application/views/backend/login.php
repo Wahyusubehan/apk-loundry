@@ -44,19 +44,20 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Login Sistem</h1>
                                     </div>
-                                    <form method="post" action="<?= base_url()?>login" class="user">
-                                        <div class="form-group">
-                                            <input type="text" name="username" class="form-control form-control-user"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="Enter Username...">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" name="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
-                                        </div>
-                                        
-										<button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
-                                    </form>
+                                    <form action="<?php echo site_url('login/proses'); ?>" method="post" class="user">
+    <div class="form-group">
+        <input type="text" name="username" class="form-control form-control-user"
+            placeholder="Enter Username..." required>
+    </div>
+
+    <div class="form-group">
+        <input type="password" name="password" class="form-control form-control-user"
+            placeholder="Password" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
+</form>
+
                                     
                                 </div>
                             </div>

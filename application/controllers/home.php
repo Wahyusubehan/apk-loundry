@@ -1,6 +1,6 @@
 <?php
 
-class Home Extends CI_Controller{
+class home Extends CI_Controller{
 
 	public function index()
 	{
