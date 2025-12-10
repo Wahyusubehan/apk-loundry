@@ -1,6 +1,5 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-// test ilham
 
 class Paket extends CI_Controller {
 
