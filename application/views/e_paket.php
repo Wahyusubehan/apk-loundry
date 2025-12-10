@@ -3,34 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><?= $judul; ?></title>
 </head>
 
 <body>
     <div class="container-fluid">
         <h1 class="h3 mb-2 text-gray-800"><?= $judul; ?></h1>
+
         <div class="card shadow mb-4">
             <div class="card-body">
-                <form method="post" action="<?= base_url() ?>Paket/update">
-                    <div class="form-group">
-                        <input type="text" name="kode_paket" value="<?= $data['kode_paket'];?>" class="form-control" readonly>
+
+                <form method="post" action="<?= base_url('paket/update') ?>">
+                    
+                    <!-- KODE PAKET -->
+                    <div class="form-group mb-3">
+                        <input type="text" 
+                               name="kode_paket" 
+                               value="<?= $data['kode_paket']; ?>" 
+                               class="form-control" 
+                               readonly>
                     </div>
 
-                    <div class="form-group">
-                        <input type="text" name="nama_paket" value="<?= $data['nama_paket'];?>" class="form-control" placeholder="Input Nama Paket" required>
+                    <!-- NAMA PAKET -->
+                    <div class="form-group mb-3">
+                        <input type="text" 
+                               name="nama_paket" 
+                               value="<?= $data['nama_paket']; ?>" 
+                               class="form-control" 
+                               placeholder="Input Nama Paket" 
+                               required>
                     </div>
 
-                    <div class="form-group">
-                        <input type="number" name="Harga_paket" value="<?= $data['Harga_paket'];?>" class="form-control" placeholder="Input Harga Paket" required>
+                    <!-- HARGA PAKET -->
+                    <div class="form-group mb-3">
+                        <input type="number" 
+                               name="harga_paket" 
+                               value="<?= $data['harga_paket']; ?>" 
+                               class="form-control" 
+                               placeholder="Input Harga Paket" 
+                               required>
                     </div>
 
-                    <div class="form-group">
-                        <botton type="submit" class="btn btn-primary"> Update </botton>
-                        <a href="<?= base_url() ?>paket" class="btn btn-danger"> Batal</a>
+                    <!-- BUTTON -->
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        <a href="<?= base_url('paket') ?>" class="btn btn-danger">Batal</a>
                     </div>
+
                 </form>
+
             </div>
         </div>
+
     </div>
 </body>
 </html>
