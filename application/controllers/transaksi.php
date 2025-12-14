@@ -1,41 +1,38 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Transaksi extends CI_Controller {
+class M_transaksi extends CI_Model {
+    
+     public function getHargaPaket($kode_paket)
+     {
+         $this->db->where('kode_paket', $kode_paket);
+         return $this->db->get('paket')->row_array();
+     }
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->load->model('m_transaksi');
-    }
+     public function generateKode()
+     {
+          $this->db->select('RIGHT(transaksi.Kode_konsumen,3) as kode', false);
+          $this->db->order_by('kode_transaksi', 'desc');
+          $this->db->limit(1);
+          $query = $this->db->get('transaksi');
+          if ($query->num_rows() > 0) {
+              $data = $query->row();
+              $kode = intval($data->kode) + 1;
+          }else{
+              $kode = 1;
+}
 
-    public function tambah()
-    {
-        $isi['content'] = 'backend/transaksi/t_transaksi.php';
-        $isi['judul'] = 'Form Tambah Transaksi';
+$kodemax = str_pad($kode, 3, "0", STR_PAD_LEFT);
+$kodejadi = "" . $kodemax;
+return $kodejadi;
+     }
 
-        // Ambil data dropdown konsumen & paket
-        $isi['konsumen'] = $this->db->get('konsumen')->result();
-        $isi['paket']    = $this->db->get('paket')->result();
-
-        // Generate kode transaksi otomatis
-        $isi['kode_transaksi'] = $this->m_transaksi->generateKode();
-
-        // Pastikan view dashboard sesuai folder mu
-        $this->load->view('backend/dashboard', $isi);
-    }
-
-    public function getHargaPaket()
-    {
-        $kode_paket = $this->input->post('kode_paket');
-
-        if ($kode_paket == "") {
-            echo json_encode(['harga_paket' => 0]);
-            return;
-        }
-
-        $data = $this->m_transaksi->getHargaPaket($kode_paket);
-
-        echo json_encode($data);
-    }
+     public function getAllRiwayat()
+     {
+         $this->db->select('*');
+         $this->db->from('transaksi');
+         $this->db->join('konsumen', 'transaksi.kode_konsumen = konsumen.kode_konsumen', 'left');
+          $this->db->join('paket', 'transaksi.kode_paket = paket.kode_paket', 'left');
+         return $this->db->get()->result();
+     }
 }
