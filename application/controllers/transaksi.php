@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+//test
 class M_transaksi extends CI_Model {
     
      public function getHargaPaket($kode_paket)
