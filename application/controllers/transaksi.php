@@ -1,41 +1,52 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Transaksi extends CI_Controller {
+class M_transaksi extends CI_Model
+{
 
-    public function __construct()
+    /* =============================
+       Ambil harga paket
+    ============================== */
+    public function getHargaPaket($kode_paket)
     {
-        parent::__construct();
-        $this->load->model('m_transaksi');
+        return $this->db
+            ->where('kode_paket', $kode_paket)
+            ->get('paket')
+            ->row_array();
     }
 
-    public function tambah()
+    /* =============================
+       Generate kode transaksi
+    ============================== */
+    public function generateKode()
     {
-        $isi['content'] = 'backend/transaksi/t_transaksi.php';
-        $isi['judul'] = 'Form Tambah Transaksi';
+        $this->db->select('RIGHT(kode_transaksi,3) AS kode', false);
+        $this->db->order_by('kode_transaksi', 'DESC');
+        $this->db->limit(1);
+        $query = $this->db->get('transaksi');
 
-        // Ambil data dropdown konsumen & paket
-        $isi['konsumen'] = $this->db->get('konsumen')->result();
-        $isi['paket']    = $this->db->get('paket')->result();
-
-        // Generate kode transaksi otomatis
-        $isi['kode_transaksi'] = $this->m_transaksi->generateKode();
-
-        // Pastikan view dashboard sesuai folder mu
-        $this->load->view('backend/dashboard', $isi);
-    }
-
-    public function getHargaPaket()
-    {
-        $kode_paket = $this->input->post('kode_paket');
-
-        if ($kode_paket == "") {
-            echo json_encode(['harga_paket' => 0]);
-            return;
+        if ($query->num_rows() > 0) {
+            $data = $query->row();
+            $kode = (int) $data->kode + 1;
+        } else {
+            $kode = 1;
         }
 
-        $data = $this->m_transaksi->getHargaPaket($kode_paket);
+        return str_pad($kode, 3, '0', STR_PAD_LEFT);
+    }
 
-        echo json_encode($data);
+    /* =============================
+       Ambil seluruh riwayat transaksi
+    ============================== */
+    public function getAllRiwayat()
+    {
+        return $this->db
+            ->select('*')
+            ->from('transaksi')
+            ->join('konsumen', 'transaksi.kode_konsumen = konsumen.kode_konsumen', 'left')
+            ->join('paket', 'transaksi.kode_paket = paket.kode_paket', 'left')
+            ->get()
+            ->result();
     }
 }
+

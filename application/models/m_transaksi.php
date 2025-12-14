@@ -1,32 +1,42 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class M_transaksi extends CI_Model {
+class M_transaksi extends CI_Model
+{
 
-    // Ambil harga paket berdasarkan kode
     public function getHargaPaket($kode_paket)
     {
-        $this->db->where('kode_paket', $kode_paket);
-        return $this->db->get('paket')->row_array();
+        return $this->db
+            ->where('kode_paket', $kode_paket)
+            ->get('paket')
+            ->row_array();
     }
 
-
-    // Generate kode transaksi otomatis
     public function generateKode()
     {
-        $this->db->select('RIGHT(transaksi.kode_transaksi,3) as kode', false);
-        $this->db->order_by('kode_transaksi', 'desc');
+        $this->db->select('RIGHT(kode_transaksi, 3) AS kode', false);
+        $this->db->order_by('kode_transaksi', 'DESC');
         $this->db->limit(1);
         $query = $this->db->get('transaksi');
 
         if ($query->num_rows() > 0) {
             $data = $query->row();
-            $kode = intval($data->kode) + 1;
+            $kode = (int)$data->kode + 1;
         } else {
             $kode = 1;
         }
 
-        $kodemax = str_pad($kode, 3, "0", STR_PAD_LEFT);
-        return $kodemax; // nanti dipanggil di controller ditambah 'TR'+tanggal
+        return str_pad($kode, 3, '0', STR_PAD_LEFT);
+    }
+
+    public function getAllRiwayat()
+    {
+        return $this->db
+            ->select('*')
+            ->from('transaksi')
+            ->join('konsumen', 'transaksi.kode_konsumen = konsumen.kode_konsumen', 'left')
+            ->join('paket', 'transaksi.kode_paket = paket.kode_paket', 'left')
+            ->get()
+            ->result();
     }
 }
