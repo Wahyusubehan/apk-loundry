@@ -50,8 +50,8 @@
             </li>
 
 			<li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <span>Laporan</span></a>
+                <a class="nav-link" href="<?= base_url()?>laporan">
+                    <i class="fas fa-file-alt"></i> <span>laporan"</span>
             </li>
 
         </ul>
