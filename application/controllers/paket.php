@@ -14,7 +14,7 @@ class Paket extends CI_Controller {
         $isi['content'] = 'backend/paket/v_paket.php';
         $isi['judul']   = 'Daftar Data Paket';
         $isi['data']    = $this->m_paket->getDataPaket(); // perbaikan: tambah ()
-        $this->load->view('backend/dasboard', $isi);
+        $this->load->view('backend/dashboard', $isi);
     }
 
     public function tambah()
@@ -22,7 +22,7 @@ class Paket extends CI_Controller {
         $isi['content'] = 'backend/paket/t_paket.php';
         $isi['judul']   = 'Form Tambah Paket';
         $isi['kode_paket'] = $this->m_paket->generate_kode_paket();
-        $this->load->view('backend/dasboard', $isi);
+        $this->load->view('backend/dashboard', $isi);
     }
 
     public function simpan()
@@ -41,14 +41,14 @@ class Paket extends CI_Controller {
         }
     }
 
-    public function edit($kode_paket)
+   public function edit($kode_paket)
     {
         $isi['content'] = 'backend/paket/e_paket.php';
         $isi['judul']   = 'Form Edit Paket';
         $isi['data']    = $this->m_paket->edit($kode_paket);
 
         // perbaikan: dasboard (bukan dashboard)
-        $this->load->view('backend/dasboard', $isi);
+        $this->load->view('backend/dashboard', $isi);
     }
 
     public function update()
