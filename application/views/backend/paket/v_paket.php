@@ -1,7 +1,7 @@
 <div class="container-fluid">
 
     <?php
-        if (!empaty($this->session->flashdata('info'))) {?>
+        if (!empty($this->session->flashdata('info'))) {?>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
     <strong>Selamat!</strong> <?= $this->session->flashdata('info')?>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
