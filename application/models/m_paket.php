@@ -23,4 +23,34 @@ class M_paket extends CI_Model {
         return "PK" . $kodemax;
     }
 
+    // Ambil semua data paket
+    public function getDataPaket()
+    {
+        return $this->db->get('paket')->result();
+    }
+
+    // Ambil data paket berdasarkan kode_paket
+    public function edit($kode_paket)
+    {
+        return $this->db
+            ->where('kode_paket', $kode_paket)
+            ->get('paket')
+            ->row_array();
+    }
+
+    // Update data paket
+    public function update($kode_paket, $data)
+    {
+        return $this->db
+            ->where('kode_paket', $kode_paket)
+            ->update('paket', $data);
+    }
+
+    // Hapus data paket
+    public function delete($kode_paket)
+    {
+        return $this->db
+            ->where('kode_paket', $kode_paket)
+            ->delete('paket');
+    }
 }
