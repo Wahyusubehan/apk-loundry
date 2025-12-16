@@ -48,7 +48,7 @@ class Paket extends CI_Controller {
         $isi['data']    = $this->m_paket->edit($kode_paket);
 
         // perbaikan: dasboard (bukan dashboard)
-        $this->load->view('backend/dasboard', $isi);
+        $this->load->view('backend/dashboard', $isi);
     }
 
     public function update()
