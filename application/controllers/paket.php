@@ -47,7 +47,7 @@ class Paket extends CI_Controller {
         $isi['judul']   = 'Form Edit Paket';
         $isi['data']    = $this->m_paket->edit($kode_paket);
 
-        // perbaikan: dasboard (bukan dashboard)
+        // perbaikan: dashboard (bukan dasboard)
         $this->load->view('backend/dashboard', $isi);
     }
 
