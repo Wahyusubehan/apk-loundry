@@ -35,8 +35,8 @@ class Paket extends CI_Controller {
 
         $query = $this->db->insert('paket', $data);
 
-        if ($query) {
-            $this->session->set_flashdata('info', 'Data Paket Berhasil disimpan');
+        if ($query = TRUE) {
+            $this->session->set_flashdata('info', 'Data Paket Berhasil di Simpan');
             redirect('paket');
         }
     }

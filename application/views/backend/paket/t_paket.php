@@ -21,7 +21,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="number" name="Harga_paket" class="form-control" placeholder="Input Harga Paket" required>
+                        <input type="number" name="harga_paket" class="form-control" placeholder="Input Harga Paket" required>
                     </div>
 
                     <div class="form-group">
