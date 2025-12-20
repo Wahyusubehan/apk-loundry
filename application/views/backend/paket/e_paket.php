@@ -11,7 +11,7 @@
         <h1 class="h3 mb-2 text-gray-800"><?= $judul; ?></h1>
         <div class="card shadow mb-4">
             <div class="card-body">
-                <form method="post" action="<?= base_url() ?>Paket/update">
+                <form method="post" action="<?= base_url() ?>paket/update">
                     <div class="form-group">
                         <input type="text" name="kode_paket" value="<?= $data['kode_paket'];?>" class="form-control" readonly>
                     </div>
@@ -21,7 +21,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="number" name="Harga_paket" value="<?= $data['Harga_paket'];?>" class="form-control" placeholder="Input Harga Paket" required>
+                        <input type="number" name="harga_paket" value="<?= $data['harga_paket'];?>" class="form-control" placeholder="Input Harga Paket" required>
                     </div>
 
                     <div class="form-group">

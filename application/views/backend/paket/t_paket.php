@@ -11,7 +11,7 @@
         <h1 class="h3 mb-2 text-gray-800"><?= $judul; ?></h1>
         <div class="card shadow mb-4">
             <div class="card-body">
-                <form method="post" action="<?= base_url() ?>Paket/simpan">
+                <form method="post" action="<?= base_url() ?>paket/simpan">
                     <div class="form-group">
                         <input type="text" name="kode_paket" value="<? $kode_paket;?>" class="form-control" readonly>
                     </div>

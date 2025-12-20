@@ -46,6 +46,7 @@ class Paket extends CI_Controller {
         $isi['content'] = 'backend/paket/e_paket.php';
         $isi['judul']   = 'Form Edit Paket';
         $isi['data']    = $this->m_paket->edit($kode_paket);
+        $this->load->view('backend/dashboard', $isi);
 
         // perbaikan: dashboard (bukan dasboard)
         $this->load->view('backend/dashboard', $isi);
@@ -54,8 +55,8 @@ class Paket extends CI_Controller {
     public function update()
     {
         $kode_paket = $this->input->post('kode_paket');
-
         $data = array(
+            'kode_paket'  => $this->input->post('kode_paket'),
             'nama_paket'  => $this->input->post('nama_paket'),
             'harga_paket' => $this->input->post('harga_paket')
         );
@@ -64,7 +65,7 @@ class Paket extends CI_Controller {
         $query = $this->m_paket->update($kode_paket, $data);
 
         if ($query) {
-            $this->session->set_flashdata('info', 'Data Paket Berhasil diupdate');
+            $this->session->set_flashdata('info', 'Data Paket Berhasil di Update');
             redirect('paket');
         }
     }
@@ -74,7 +75,7 @@ class Paket extends CI_Controller {
         $query = $this->m_paket->delete($kode_paket);
 
         if ($query) {
-            $this->session->set_flashdata('info', 'Data Paket Berhasil dihapus');
+            $this->session->set_flashdata('info', 'Data Paket Berhasil di Delete');
             redirect('paket');
         }
     }
