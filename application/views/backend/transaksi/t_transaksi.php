@@ -1,5 +1,5 @@
 <?php
-    date_default_timezone_set('Asia/Yogyakarta');
+    date_default_timezone_set('Asia/Jakarta');
     $tgl_masuk = date('Y-m-d h:i:s');
 ?>
 
