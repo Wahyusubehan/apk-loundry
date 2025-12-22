@@ -1,52 +1,56 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class M_transaksi extends CI_Model
-{
+class Transaksi extends CI_Controller{
+     public function __construct()
+     {
+         parent::__construct();
+         $this->load->model('m_transaksi');
+     }
 
-    /* =============================
-       Ambil harga paket
-    ============================== */
-    public function getHargaPaket($kode_paket)
-    {
-        return $this->db
-            ->where('kode_paket', $kode_paket)
-            ->get('paket')
-            ->row_array();
-    }
+     public function tambah()
+     {
+         $isi['content'] = 'backend/transaksi/t_transaksi';
+         $isi['judul'] = 'Form Tambah Transaksi';
+         $isi['konsumen'] = $this->db->get('konsumen')->result();
+         $isi['paket'] = $this->db->get('paket')->result();
+         $isi['kode_transaksi'] = $this->m_transaksi->generateKode();
+         $this->load->view('backend/dashboard', $isi);
+     }
 
-    /* =============================
-       Generate kode transaksi
-    ============================== */
-    public function generateKode()
-    {
-        $this->db->select('RIGHT(kode_transaksi,3) AS kode', false);
-        $this->db->order_by('kode_transaksi', 'DESC');
-        $this->db->limit(1);
-        $query = $this->db->get('transaksi');
+     public function getHargaPaket()
+     {
+         $kode_paket = $this->input->post('kode_paket');
+         $data = $this->m_transaksi->getHargaPaket($kode_paket);
+         echo json_encode($data);
+     }
 
-        if ($query->num_rows() > 0) {
-            $data = $query->row();
-            $kode = (int) $data->kode + 1;
-        } else {
-            $kode = 1;
-        }
+     public function simpan()
+     {
+          $data = array(
+            'kode_transaksi' => $this->input->post('kode_transaksi'),
+            'kode_konsumen' => $this->input->post('kode_konsumen'),
+            'kode_paket' => $this->input->post('kode_paket'),
+            'tgl_masuk' => $this->input->post('tgl_masuk'),
+            'tgl_ambil' => $this->input->post('tgl_ambil'),
+            'berat' => $this->input->post('berat'),
+            'grand_total' => $this->input->post('grand_total'),
+            'bayar' => $this->input->post('bayar'),
+            'status' => $this->input->post('status')
+          );
 
-        return str_pad($kode, 3, '0', STR_PAD_LEFT);
-    }
+          $query = $this->db->insert('transaksi', $data);
+          if ($query == true) {
+             $this->session->set_flashdata('info', 'Data Transaksi Berhasil Disimpan');
+             redirect('transaksi/tambah', 'refresh');
+          }
+     }
 
-    /* =============================
-       Ambil seluruh riwayat transaksi
-    ============================== */
-    public function getAllRiwayat()
-    {
-        return $this->db
-            ->select('*')
-            ->from('transaksi')
-            ->join('konsumen', 'transaksi.kode_konsumen = konsumen.kode_konsumen', 'left')
-            ->join('paket', 'transaksi.kode_paket = paket.kode_paket', 'left')
-            ->get()
-            ->result();
-    }
+     public function riwayat()
+     {
+         $isi['content'] = 'backend/transaksi/riwayat_transaksi';
+         $isi['judul'] = 'Riwayat Transaksi';
+         $isi['data'] = $this->m_transaksi->getAllRiwayat();
+         $this->load->view('backend/dashboard', $isi);
+     }
 }
-

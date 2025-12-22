@@ -45,8 +45,13 @@
             </li>
 
 			<li class="nav-item">
+                <a class="nav-link" href="<?= base_url()?>transaksi/tambah">
+                    <span>Tambah Transaksi</span></a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="charts.html">
-                    <span>Data Transaksi</span></a>
+                    <span>Riwayat Transaksi</span></a>
             </li>
 
 			<li class="nav-item">
