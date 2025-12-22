@@ -25,4 +25,25 @@ class M_konsumen extends CI_Model {
     {
         return $this->db->get('konsumen')->result();
     }
+
+	public function edit($id)
+	{
+		$this->db->select('*');
+		$this->db->from('konsumen');
+		$this->db->where('kode_konsumen', $id);
+		return $this->db->get()->row_array();
+	}
+
+	public function update($kode_konsumen,$data)
+	{
+		$this->db->where('kode_konsumen', $kode_konsumen);
+		$this->db->update('konsumen', $data);
+	}
+
+	public function delete($id)
+	{
+		$this->db->where('kode_konsumen', $id);
+		$this->db->delete('konsumen');
+		
+	}
 } 

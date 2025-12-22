@@ -41,4 +41,38 @@ class Konsumen extends CI_Controller {
             redirect('konsumen');
         }
     }
+	public function edit($id)
+	{
+		$isi['content']='backend/konsumen/e_konsumen';
+		$isi['judul']= 'form edit konsumen';
+		$isi['konsumen']= $this->m_konsumen->edit($id);
+		var_dump($isi['konsumen']);
+		$this->load->view('backend/dashboard', $isi);
+	}
+
+	public function update()
+	{
+		$kode_konsumen= $this->input->post('kode_konsumen');
+		$data = array(
+            'kode_konsumen'   => $this->input->post('kode_konsumen'),
+            'nama_konsumen'   => $this->input->post('nama_konsumen'),
+            'alamat_konsumen' => $this->input->post('alamat_konsumen'),
+            'no_telp'         => $this->input->post('no_telp'),
+        );
+
+        $query = $this->m_konsumen->update($kode_konsumen,$data);
+        if ($query=true) {
+            $this->session->set_flashdata('info', 'Data Konsumen Berhasil DiUpdate');
+            redirect('konsumen');
+        }
+	}
+
+	public function delete($id)
+	{
+		$query = $this->m_konsumen->delete($id);
+		if ($query = true ) {
+			$this->session->set_flashdata('info', 'Data Konsumen Berhasil dihapus');
+			redirect('konsumen');
+		}
+	}
 }
