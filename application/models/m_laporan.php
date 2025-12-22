@@ -2,6 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_laporan extends CI_Model {
+
 	public function filter_laporan($tgl_mulai, $tgl_ahir)
 	{
 

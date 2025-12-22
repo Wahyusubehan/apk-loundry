@@ -54,8 +54,8 @@
                                     <td><?= $row->alamat_konsumen;?></td>
                                     <td><?= $row->no_telp;?></td>
                                     <td>
-                                        <a href="#" class="btn btn-success btn-sm"> Edit</a>
-                                        <a href="#" class="btn btn-danger btn-sm"> Delete</a>
+                                        <a href="<?= base_url() ?>konsumen/edit/<?= $row->kode_konsumen?>" class="btn btn-success btn-sm"> Edit</a>
+                                        <a href="<?= base_url() ?>konsumen/delete/<?= $row->kode_konsumen?>" class="btn btn-danger btn-sm"> Delete</a>
                                     </td>
                                 </tr>                            
                             <?php }                        
