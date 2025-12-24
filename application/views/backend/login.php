@@ -37,7 +37,7 @@
                         <!-- Nested Row within Card Body -->
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block">
-								<img src="<?= base_url('assets/img/cover.jpg'); ?>" class="img-fluid">
+								<img src="<?= base_url('assets/images/cover.png'); ?>" class="img-fluid">
 							</div>
                             <div class="col-lg-6">
                                 <div class="p-5">

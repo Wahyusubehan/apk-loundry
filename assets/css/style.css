@@ -1,5 +1,5 @@
 .bg-navbar{
-	background-image: linear-gradient(#C70909, #F0BF0F);
+	background-image: linear-gradient(#1ff8ff ,#0bafba );
 }
 
 .image-slider{
@@ -7,7 +7,7 @@
 }
 
 .btn-slider{
-	background-image: linear-gradient(#C70909, #F0BF0F);
+	background-image: linear-gradient(#00eeff, #F0BF0F);
 	width: 50px;
 	height: 50px;
 	border-radius: 50px;
@@ -20,4 +20,14 @@
 	background-color: black;
 	opacity: 0.7;
 	border-radius: 20px;
+}
+
+.set-image{
+	width: 350px;
+	height: 250px;
+}
+
+h5{
+	color: #d64b0b;
+	font-weight: bold;
 }

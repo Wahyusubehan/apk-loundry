@@ -13,7 +13,7 @@
             <div class="card-body">
                 <form method="post" action="<?= base_url() ?>paket/simpan">
                     <div class="form-group">
-                        <input type="text" name="kode_paket" value="<? $kode_paket;?>" class="form-control" readonly>
+                        <input type="text" name="kode_paket" value="<?= $kode_paket;?>" class="form-control" readonly>
                     </div>
 
                     <div class="form-group">

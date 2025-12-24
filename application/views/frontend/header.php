@@ -43,14 +43,14 @@
 		</ol>
   <div class="carousel-inner">
 			<div class="carousel-item active">
-			<img class="d-block w-100 image-slider" src="<?= base_url()?>assets/images/slider/slide1.jpg" alt="First slide">
+			<img class="d-block w-100 image-slider" src="<?= base_url()?>assets/images/slider/slide1.png" alt="First slide">
 			<div class="carousel-caption d-none d-md-block bg-caption">
 				<h5>Judul</h5>
 				<p>Deskripsi</p>
 			</div>
 			</div>
 			<div class="carousel-item">
-			<img class="d-block w-100 image-slider" src="..." alt="Second slide">
+			<img class="d-block w-100 image-slider" src="<?= base_url()?>assets/images/slider/slide2.png" alt="Second slide">
 			<div class="carousel-caption d-none d-md-block bg-caption">
 				<h5>Judul</h5>
 				<p>Deskripsi</p>
