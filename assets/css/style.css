@@ -31,3 +31,16 @@ h5{
 	color: #d64b0b;
 	font-weight: bold;
 }
+
+.th-warna{
+	background-color: cyan;
+}
+
+.footer{
+	height: 90px;
+	background-color: black;
+}
+
+.copyright{
+	padding-top: 25px;
+}
