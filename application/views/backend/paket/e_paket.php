@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="form-group">
-                        <botton type="submit" class="btn btn-primary"> Update </botton>
+                        <button type="submit" class="btn btn-primary"> Update </button>
                         <a href="<?= base_url() ?>paket" class="btn btn-danger"> Batal</a>
                         
                     </div>
