@@ -1,120 +1,131 @@
 <?php
-    date_default_timezone_set('Asia/Jakarta');
-    $tgl_masuk = date('Y-m-d h:i:s');
+date_default_timezone_set('Asia/Jakarta');
+$tgl_masuk = date('Y-m-d H:i:s');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
+<?php if ($this->session->flashdata('info')) : ?>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <?= $this->session->flashdata('info'); ?>
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+</div>
+<?php endif; ?>
 
-<body>
-     <?php
-        if (!empty($this->session->flashdata('info'))) {?>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Selamat!</strong> <?= $this->session->flashdata('info')?>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-               <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    <?php }
-     ?>
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800"><?= $judul; ?></h1>
 
-    <div class="container-fluid">
-        <h1 class="h3 mb-2 text-gray-800"><?= $judul; ?></h1>
-        <div class="card shadow mb-4">
-            <div class="card-body">
-                <form method="post" action="<?= base_url() ?>Paket/simpan">
-                    <div class="form-group">
-                        <input type="text" name="kode_transaksi" value="<?= "TR".date('Ymd').$kode_transaksi;?>" class="form-control" readonly>
-                    </div>
+    <div class="card shadow mb-4">
+        <div class="card-body">
 
-                    <div class="form-group">
-                        <select name="kode_konsumen" class="form-control" required>
-                            <option value="" selected> - Pilih Konsumen - </option>
-                            <?php
-                                foreach ($konsumen as $row) {?>
-                                    <option value="<?= $row->kode_konsumen?>"> <?= $row->nama_konsumen;?></option>
-                                <?php }
-                            ?>
-                        </select>
-                    </div>
+            <form method="post" action="<?= base_url('transaksi/simpan') ?>">
 
-                     <div class="form-group">
-                        <select name="kode_paket" id="paket" class="form-control" required>
-                            <option value="" selected> - Pilih paket - </option>
-                            <?php
-                                foreach ($paket as $row) {?>
-                                    <option value="<?= $row->kode_paket?>"> <?= $row->nama_paket;?></option>
-                                <?php }
-                            ?>
-                        </select>
-                    </div>
+                <!-- KODE TRANSAKSI -->
+                <div class="form-group">
+                    <label>Kode Transaksi</label>
+                    <input type="text" name="kode_transaksi"
+                        value="<?= 'TR'.date('Ymd').$kode_transaksi; ?>"
+                        class="form-control" readonly>
+                </div>
 
-                    <div class="form-group">
-                        <input type="text" id="harga" class="form-control" placeholder="Harga Paket" readonly>
-                    </div>
+                <!-- KONSUMEN -->
+                <div class="form-group">
+                    <label>Konsumen</label>
+                    <select name="kode_konsumen" class="form-control" required>
+                        <option value="">-- Pilih Konsumen --</option>
+                        <?php foreach ($konsumen as $k): ?>
+                            <option value="<?= $k->kode_konsumen ?>">
+                                <?= $k->nama_konsumen ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
-                     <div class="form-group">
-                        <input type="number" name="berat" id="berat" class="form-control" placeholder="Berat (KG)">
-                    </div>
+                <!-- PAKET -->
+                <div class="form-group">
+                    <label>Paket</label>
+                    <select name="kode_paket" id="paket" class="form-control" required>
+                        <option value="">-- Pilih Paket --</option>
+                        <?php foreach ($paket as $p): ?>
+                            <option value="<?= $p->kode_paket ?>">
+                                <?= $p->nama_paket ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
-                     <div class="form-group">
-                        <input type="number" name="grand_total" id="grand_total" class="form-control" placeholder="Grand Total" readonly>
-                    </div>
+                <!-- HARGA -->
+                <div class="form-group">
+                    <label>Harga Paket</label>
+                    <input type="text" id="harga" class="form-control" readonly>
+                </div>
 
-                    <div class="form-group">
-                        <input type="text" name="tgl_masuk" value="<?= $tgl_masuk;?>" class="form-control" placeholder="Tanggal Masuk" readonly>
-                    </div>
+                <!-- BERAT -->
+                <div class="form-group">
+                    <label>Berat (Kg)</label>
+                    <input type="number" name="berat" id="berat"
+                        class="form-control" required>
+                </div>
 
-                    <div class="form-group">
-                        <select name="bayar" class="form-control">
-                            <option value=""> - Pilih Status Bayar - </option>
-                            <option value="Lunas">Lunas</option>
-                            <option value="Belum Lunas">Belum Lunas</option>
-                         </select>
-                    </div>
+                <!-- TOTAL -->
+                <div class="form-group">
+                    <label>Grand Total</label>
+                    <input type="number" name="grand_total" id="grand_total"
+                        class="form-control" readonly>
+                </div>
 
-                    <div class="form-group" hidden>
-                        <input type="text" name="status" value="Baru" class="form-control" placeholder="Status" readonly>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Simpan</button>
-                        <a href="<?= base_url() ?>transaksi" class="btn btn-danger">Batal</a>
-                    </div>
-                </form>
-            </div>
+                <!-- TANGGAL -->
+                <div class="form-group">
+                    <label>Tanggal Masuk</label>
+                    <input type="text" name="tgl_masuk"
+                        value="<?= $tgl_masuk ?>"
+                        class="form-control" readonly>
+                </div>
+
+                <!-- STATUS BAYAR -->
+                <div class="form-group">
+                    <label>Status Bayar</label>
+                    <select name="bayar" class="form-control" required>
+                        <option value="">-- Pilih Status --</option>
+                        <option value="Lunas">Lunas</option>
+                        <option value="Belum Lunas">Belum Lunas</option>
+                    </select>
+                </div>
+
+                <!-- STATUS -->
+                <input type="hidden" name="status" value="Baru">
+
+                <button type="submit" class="btn btn-primary">
+                    Simpan
+                </button>
+                <a href="<?= base_url('transaksi') ?>" class="btn btn-danger">
+                    Batal
+                </a>
+
+            </form>
         </div>
     </div>
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-</body>
-</html>
-
+<!-- JQUERY -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <script>
-     $('#paket').change(function(){
-         var kode_paket = $(this).val();
+$('#paket').change(function(){
+    let kode_paket = $(this).val();
 
-         $.ajax({
-             url : '<?= base_url()?>transaksi/getHargaPaket',
-             data : {kode_paket : kode_paket},
-             method : 'post',
-             dataType : 'JSON',
-             success : function(hasil){
-                 $('#harga').val(hasil.harga_paket);
-         }
-     });
- });
-
-
- $('#berat').keyup(function(){
-     var berat = $(this).val();
-     var harga = document.getElementById('harga').value;
-     $('#grand_total').val(berat * harga);
+    $.ajax({
+        url: '<?= base_url('transaksi/getHargaPaket') ?>',
+        type: 'POST',
+        dataType: 'JSON',
+        data: {kode_paket: kode_paket},
+        success: function(res){
+            $('#harga').val(res.harga_paket);
+        }
+    });
 });
 
+$('#berat').keyup(function(){
+    let berat = $(this).val();
+    let harga = $('#harga').val();
+    $('#grand_total').val(berat * harga);
+});
 </script>

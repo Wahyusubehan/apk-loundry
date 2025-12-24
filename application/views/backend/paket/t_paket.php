@@ -13,7 +13,7 @@
             <div class="card-body">
                 <form method="post" action="<?= base_url() ?>paket/simpan">
                     <div class="form-group">
-                        <input type="text" name="kode_paket" value="<? $kode_paket;?>" class="form-control" readonly>
+                        <input type="text" name="kode_paket" value="<?= $kode_paket;?>" class="form-control" readonly>
                     </div>
 
                     <div class="form-group">
@@ -25,8 +25,8 @@
                     </div>
 
                     <div class="form-group">
-                        <botton type="submit" class="btn btn-primary"> simpan </botton>
-                        <a href="<?= base_url() ?>konsumen" class="btn btn-danger"> Batal</a>
+                        <button type="submit" class="btn btn-primary"> simpan </button>
+                        <a href="<?= base_url() ?>paket" class="btn btn-danger"> Batal</a>
                     </div>
                 </form>
             </div>
