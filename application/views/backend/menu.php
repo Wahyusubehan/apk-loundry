@@ -50,7 +50,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="<?= base_url()?>transaksi/riwayat">
                     <span>Riwayat Transaksi</span></a>
             </li>
 
