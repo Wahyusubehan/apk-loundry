@@ -1,62 +1,85 @@
 <div class="container-fluid">
-<h1 class="h3 mb-2 text-gray-800"><?= $judul ?></h1>
+
+<h1 class="h3 mb-3 text-gray-800"><?= $judul ?></h1>
 
 <div class="card shadow mb-4">
-<div class="card-body">
-<div class="table-responsive">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Data Riwayat Transaksi</h6>
+    </div>
 
-<table class="table table-bordered" id="dataTable">
-<thead>
-<tr>
-    <th>No</th>
-    <th>Tanggal Masuk</th>
-    <th>Kode</th>
-    <th>Konsumen</th>
-    <th>Paket</th>
-    <th>Berat</th>
-    <th>Total</th>
-    <th>Tgl Ambil</th>
-    <th>Status Bayar</th>
-    <th>Status</th>
-    <th>Opsi</th>
-</tr>
-</thead>
+    <div class="card-body">
+        <div class="table-responsive">
 
-<tbody>
-<?php $no=1; foreach($data as $row): ?>
-<tr>
-<td><?= $no++ ?></td>
-<td><?= $row->tgl_masuk ?></td>
-<td><?= $row->kode_transaksi ?></td>
-<td><?= $row->nama_konsumen ?></td>
-<td><?= $row->nama_paket ?></td>
-<td><?= $row->berat ?> Kg</td>
-<td>Rp <?= number_format($row->grand_total,0,',','.') ?></td>
-<td><?= $row->tgl_ambil ?></td>
-<td><?= $row->bayar ?></td>
+            <table class="table table-bordered table-hover text-center" id="dataTable" width="100%" cellspacing="0">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>No</th>
+                        <th>Tgl Masuk</th>
+                        <th>Kode</th>
+                        <th>Konsumen</th>
+                        <th>Paket</th>
+                        <th>Berat</th>
+                        <th>Total</th>
+                        <th>Tgl Ambil</th>
+                        <th>Bayar</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
 
-<td>
-<?php if($row->status != 'Selesai'): ?>
-<select class="badge badge-info status" data-kode="<?= $row->kode_transaksi ?>">
-    <option value="Baru" <?= $row->status=='Baru'?'selected':'' ?>>Baru</option>
-    <option value="Proses" <?= $row->status=='Proses'?'selected':'' ?>>Proses</option>
-    <option value="Selesai">Selesai</option>
-</select>
-<?php else: ?>
-<span class="badge badge-success">Selesai</span>
-<?php endif; ?>
-</td>
+                <tbody>
+                <?php $no=1; foreach($data as $row): ?>
+                    <tr>
+                        <td><?= $no++ ?></td>
+                        <td><?= date('d-m-Y', strtotime($row->tgl_masuk)) ?></td>
+                        <td><strong><?= $row->kode_transaksi ?></strong></td>
+                        <td><?= $row->nama_konsumen ?></td>
+                        <td><?= $row->nama_paket ?></td>
+                        <td><?= $row->berat ?> Kg</td>
+                        <td class="text-right">
+                            Rp <?= number_format($row->grand_total,0,',','.') ?>
+                        </td>
+                        <td>
+                            <?= $row->tgl_ambil ? date('d-m-Y', strtotime($row->tgl_ambil)) : '-' ?>
+                        </td>
 
-<td>
-<a href="#" class="btn btn-warning btn-sm">Detail</a>
-</td>
-</tr>
-<?php endforeach; ?>
-</tbody>
-</table>
+                        <!-- STATUS BAYAR -->
+                        <td>
+                            <?php if($row->bayar == 'Lunas'): ?>
+                                <span class="badge badge-success">Lunas</span>
+                            <?php else: ?>
+                                <span class="badge badge-danger">Belum</span>
+                            <?php endif; ?>
+                        </td>
 
-</div>
-</div>
+                        <!-- STATUS TRANSAKSI -->
+                        <td>
+                        <?php if($row->status != 'Selesai'): ?>
+                            <select class="badge badge-info status"
+                                    data-kode="<?= $row->kode_transaksi ?>">
+                                <option value="Baru" <?= $row->status=='Baru'?'selected':'' ?>>Baru</option>
+                                <option value="Proses" <?= $row->status=='Proses'?'selected':'' ?>>Proses</option>
+                                <option value="Selesai">Selesai</option>
+                            </select>
+                        <?php else: ?>
+                            <span class="badge badge-success">Selesai</span>
+                        <?php endif; ?>
+                        </td>
+
+                        <!-- AKSI -->
+                        <td>
+                            <a href="#" class="btn btn-warning btn-sm">
+                                <i class="fas fa-eye"></i> Detail
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
 </div>
 </div>
 
