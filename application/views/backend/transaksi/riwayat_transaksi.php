@@ -4,13 +4,17 @@
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Data Riwayat Transaksi</h6>
+            <h6 class="m-0 font-weight-bold text-primary">
+                Data Riwayat Transaksi
+            </h6>
         </div>
 
         <div class="card-body">
             <div class="table-responsive">
 
-                <table class="table table-bordered table-hover text-center" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered table-hover text-center"
+                       id="dataTable" width="100%" cellspacing="0">
+
                     <thead class="thead-dark">
                         <tr>
                             <th>No</th>
@@ -31,24 +35,41 @@
                     <?php $no = 1; foreach($data as $row): ?>
                         <tr>
                             <td><?= $no++ ?></td>
-                            <td><?= date('d-m-Y', strtotime($row->tgl_masuk)) ?></td>
-                            <td><strong><?= $row->kode_transaksi ?></strong></td>
+
+                            <td>
+                                <?= date('d-m-Y', strtotime($row->tgl_masuk)) ?>
+                            </td>
+
+                            <td>
+                                <strong><?= $row->kode_transaksi ?></strong>
+                            </td>
+
                             <td><?= $row->nama_konsumen ?></td>
+
                             <td><?= $row->nama_paket ?></td>
+
                             <td><?= $row->berat ?> Kg</td>
+
                             <td class="text-right">
                                 Rp <?= number_format($row->grand_total, 0, ',', '.') ?>
                             </td>
+
                             <td>
-                                <?= $row->tgl_ambil ? date('d-m-Y', strtotime($row->tgl_ambil)) : '-' ?>
+                                <?= $row->tgl_ambil
+                                    ? date('d-m-Y', strtotime($row->tgl_ambil))
+                                    : '-' ?>
                             </td>
 
                             <!-- STATUS BAYAR -->
                             <td>
                                 <?php if($row->bayar == 'Lunas'): ?>
-                                    <span class="badge badge-success">Lunas</span>
+                                    <span class="badge badge-success">
+                                        Lunas
+                                    </span>
                                 <?php else: ?>
-                                    <span class="badge badge-danger">Belum</span>
+                                    <span class="badge badge-danger">
+                                        Belum
+                                    </span>
                                 <?php endif; ?>
                             </td>
 
@@ -57,28 +78,42 @@
                             <?php if($row->status != 'Selesai'): ?>
                                 <select class="form-control form-control-sm status"
                                         data-kode="<?= $row->kode_transaksi ?>">
-                                    <option value="Baru" <?= $row->status=='Baru'?'selected':'' ?>>Baru</option>
-                                    <option value="Proses" <?= $row->status=='Proses'?'selected':'' ?>>Proses</option>
-                                    <option value="Selesai">Selesai</option>
+                                    <option value="Baru"
+                                        <?= $row->status=='Baru'?'selected':'' ?>>
+                                        Baru
+                                    </option>
+                                    <option value="Proses"
+                                        <?= $row->status=='Proses'?'selected':'' ?>>
+                                        Proses
+                                    </option>
+                                    <option value="Selesai">
+                                        Selesai
+                                    </option>
                                 </select>
                             <?php else: ?>
-                                <span class="badge badge-success">Selesai</span>
+                                <span class="badge badge-success">
+                                    Selesai
+                                </span>
                             <?php endif; ?>
                             </td>
 
                             <!-- AKSI -->
-                            <td>
-                            <?php if($row->status != 'Selesai' && $row->bayar != 'Lunas'): ?>
-                                <a href="<?= base_url('transaksi/edit/'.$row->kode_transaksi) ?>"
-                                   class="btn btn-success btn-sm mb-1">
-                                    <i class="fas fa-edit"></i> Edit
-                                </a>
-                            <?php endif; ?>
+                            <td class="text-center">
 
+                                <!-- DETAIL (DI ATAS) -->
                                 <a href="<?= base_url('transaksi/detail/'.$row->kode_transaksi) ?>"
-                                   class="btn btn-warning btn-sm mb-1">
+                                   class="btn btn-warning btn-sm mb-1 w-100">
                                     <i class="fas fa-eye"></i> Detail
                                 </a>
+
+                                <!-- EDIT (DI BAWAH, JIKA BOLEH) -->
+                                <?php if($row->status != 'Selesai' && $row->bayar != 'Lunas'): ?>
+                                    <a href="<?= base_url('transaksi/edit/'.$row->kode_transaksi) ?>"
+                                       class="btn btn-success btn-sm w-100">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                <?php endif; ?>
+
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -114,4 +149,3 @@ $('.status').change(function(){
     });
 });
 </script>
-

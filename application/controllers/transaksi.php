@@ -1,6 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+// LOAD DOMPDF BARU
+require_once APPPATH.'third_party/dompdf/autoload.inc.php';
+use Dompdf\Dompdf;
+
 class Transaksi extends CI_Controller {
 
     public function __construct()
@@ -9,9 +13,6 @@ class Transaksi extends CI_Controller {
         $this->load->model('M_transaksi');
     }
 
-    /* ======================
-       FORM TAMBAH TRANSAKSI
-       ====================== */
     public function tambah()
     {
         $data['content'] = 'backend/transaksi/t_transaksi';
@@ -23,18 +24,12 @@ class Transaksi extends CI_Controller {
         $this->load->view('backend/dashboard', $data);
     }
 
-    /* ======================
-       AJAX AMBIL HARGA PAKET
-       ====================== */
     public function getHargaPaket()
     {
         $kode_paket = $this->input->post('kode_paket');
         echo json_encode($this->M_transaksi->getHargaPaket($kode_paket));
     }
 
-    /* ======================
-       SIMPAN TRANSAKSI BARU
-       ====================== */
     public function simpan()
     {
         $data = [
@@ -53,9 +48,6 @@ class Transaksi extends CI_Controller {
         redirect('transaksi/tambah');
     }
 
-    /* ======================
-       RIWAYAT TRANSAKSI
-       ====================== */
     public function riwayat()
     {
         $data['content'] = 'backend/transaksi/riwayat_transaksi';
@@ -65,9 +57,6 @@ class Transaksi extends CI_Controller {
         $this->load->view('backend/dashboard', $data);
     }
 
-    /* ======================
-       UPDATE STATUS TRANSAKSI
-       ====================== */
     public function update_status()
     {
         $kode_transaksi = $this->input->post('kt');
@@ -88,14 +77,10 @@ class Transaksi extends CI_Controller {
         $this->M_transaksi->updateStatus($kode_transaksi, $data);
     }
 
-    /* ======================
-       FORM EDIT TRANSAKSI
-       ====================== */
     public function edit($kode_transaksi)
     {
         $transaksi = $this->M_transaksi->getByKode($kode_transaksi);
 
-        // 🔒 Kunci jika sudah selesai / lunas
         if ($transaksi->status == 'Selesai' || $transaksi->bayar == 'Lunas') {
             redirect('transaksi/riwayat');
         }
@@ -109,9 +94,6 @@ class Transaksi extends CI_Controller {
         $this->load->view('backend/dashboard', $data);
     }
 
-    /* ======================
-       UPDATE HASIL EDIT
-       ====================== */
     public function update()
     {
         $kode_transaksi = $this->input->post('kode_transaksi');
@@ -127,5 +109,37 @@ class Transaksi extends CI_Controller {
         $this->session->set_flashdata('info', 'Transaksi berhasil diperbarui');
         redirect('transaksi/riwayat');
     }
-}
 
+    public function detail($kode_transaksi)
+    {
+        $data['content'] = 'backend/transaksi/detail_transaksi';
+        $data['judul']   = 'Detail Transaksi';
+        $data['transaksi'] = $this->M_transaksi->getByKode($kode_transaksi);
+
+        $this->load->view('backend/dashboard', $data);
+    }
+
+    // ==========================
+    // CETAK PDF (DOMPDF BARU)
+    // ==========================
+    public function cetak_pdf($kode_transaksi)
+    {
+        $data['transaksi'] = $this->M_transaksi->getByKode($kode_transaksi);
+
+        $html = $this->load->view(
+            'backend/transaksi/pdf_detail_transaksi',
+            $data,
+            true
+        );
+
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        $dompdf->stream(
+            'Detail_Transaksi_'.$kode_transaksi.'.pdf',
+            ['Attachment' => false]
+        );
+    }
+}
