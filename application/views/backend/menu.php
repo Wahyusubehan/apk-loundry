@@ -7,7 +7,12 @@
 
 		<style>
 			.bg_menu{
-				background-image: linear-gradient(#C70909, #F0BF0F);
+				background-image: linear-gradient(#C70909, #310ff0ff);
+			}
+
+			/* Perkecil jarak divider sebelum Logout */
+			.sidebar-divider {
+				margin: 0.5rem 0;
 			}
 		</style>
 	</head>
@@ -30,36 +35,51 @@
             <li class="nav-item active">
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                    <span>Dashboard</span>
+                </a>
             </li>
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="<?= base_url()?>konsumen">
-                    <span>Data Konsumen</span></a>
+                    <span>Data Konsumen</span>
+                </a>
             </li>
 
 			<li class="nav-item">
                 <a class="nav-link" href="<?= base_url()?>paket">
-                    <span>Data Paket</span></a>
+                    <span>Data Paket</span>
+                </a>
             </li>
 
 			<li class="nav-item">
                 <a class="nav-link" href="<?= base_url()?>transaksi/tambah">
-                    <span>Tambah Transaksi</span></a>
+                    <span>Tambah Transaksi</span>
+                </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="<?= base_url()?>transaksi/riwayat">
-                    <span>Riwayat Transaksi</span></a>
+                    <span>Riwayat Transaksi</span>
+                </a>
             </li>
 
 			<li class="nav-item">
                 <a class="nav-link" href="<?= base_url()?>laporan">
-                    <i class="fas fa-file-alt"></i> <span>laporan</span>
+                    <i class="fas fa-file-alt"></i> 
+                    <span>Laporan</span>
+                </a>
             </li>
 
-        </ul>
+			<hr class="sidebar-divider d-none d-md-block">
 
+			<li class="nav-item">
+				<a class="nav-link" href="<?= base_url()?>login/logout">
+					<i class="fa-solid fa-right-from-bracket"></i> 
+					<span>Logout</span>
+				</a>
+			</li>
+
+        </ul>
 	</body>
 </html>
