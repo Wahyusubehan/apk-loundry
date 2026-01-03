@@ -1,13 +1,11 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-
-class M_laporan extends CI_Model {
-
+	defined('BASEPATH') OR exit('No direct script access allowed');
+		class m_laporan extends CI_Model {
 	public function filter_laporan($tgl_mulai, $tgl_ahir)
 	{
 
-	$this->db->select('*');
-	$this->db->from('transaksi');
+		$this->db->select('*');
+		$this->db->from('transaksi');
 	$this->db->join('konsumen', 'transaksi.kode_konsumen = 
 		konsumen.kode_konsumen', 'left');
 	$this->db->join('paket', 'transaksi.kode_paket = paket.kode_paket

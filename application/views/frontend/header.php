@@ -29,7 +29,7 @@
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="<?= base_url()?>index.php/cek_londri">Cek Laundry</a>
+        <a class="nav-link" href="<?= base_url()?>cek_londri">Cek Laundry</a>
       </li>
     </ul>
   </div>

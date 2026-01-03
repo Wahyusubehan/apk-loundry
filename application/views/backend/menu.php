@@ -10,10 +10,6 @@
 				background-image: linear-gradient(#C70909, #310ff0ff);
 			}
 
-			/* Perkecil jarak divider sebelum Logout */
-			.sidebar-divider {
-				margin: 0.5rem 0;
-			}
 		</style>
 	</head>
 
@@ -21,7 +17,7 @@
 		<ul class="navbar-nav bg_menu bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url()?>dashboard">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -33,7 +29,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="<?= base_url()?>dashboard">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
@@ -42,25 +38,25 @@
             <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="<?= base_url()?>konsumen">
-                    <span>Data Konsumen</span>
+                    <i class="fas fa-users"></i> <span>Data Konsumen</span>
                 </a>
             </li>
 
 			<li class="nav-item">
                 <a class="nav-link" href="<?= base_url()?>paket">
-                    <span>Data Paket</span>
+                    <i class="fas fa-box-open"></i> <span>Data Paket</span>
                 </a>
             </li>
 
 			<li class="nav-item">
                 <a class="nav-link" href="<?= base_url()?>transaksi/tambah">
-                    <span>Tambah Transaksi</span>
+                    <i class="fas fa-dollar-sign"></i> <span>Tambah Transaksi</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="<?= base_url()?>transaksi/riwayat">
-                    <span>Riwayat Transaksi</span>
+                    <i class="fas fa-history"></i> <span>Riwayat Transaksi</span>
                 </a>
             </li>
 
@@ -75,8 +71,7 @@
 
 			<li class="nav-item">
 				<a class="nav-link" href="<?= base_url()?>login/logout">
-					<i class="fa-solid fa-right-from-bracket"></i> 
-					<span>Logout</span>
+					<i class="fas fa-sign-out-alt"></i> <span>Logout</span>
 				</a>
 			</li>
 
