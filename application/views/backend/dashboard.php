@@ -41,12 +41,21 @@
             <div id="content">
 
                 <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <nav class="navbar navbar-expand navbar-light bg-danger topbar mb-4 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
                     </button>
+
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                         <div class="navbar-nav">
+                           <a class="nav-item nav-link active" href="<?= base_url()?>slider">Kelola Slider <span class="sr-only">(current)</span></a>
+                          
+                         </div>
+                       </div>
+                    </nav>
 
                     <!-- Topbar Search -->
                     
