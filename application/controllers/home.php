@@ -1,10 +1,13 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-class home Extends CI_Controller{
+class Home extends CI_Controller {
 
 	public function index()
 	{
-		$isi['paket'] = $this->db->get('paket')->result();
+		$isi['slider'] = $this->db->get('slider')->result();
+		var_dump($isi['slider']);
+
 		$this->load->view('frontend/header', $isi);
 		$this->load->view('frontend/home');
 		$this->load->view('frontend/footer');
