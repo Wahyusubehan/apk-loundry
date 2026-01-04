@@ -1,18 +1,29 @@
 <?php
-	defined('BASEPATH') OR exit('No direct script access allowed');
-		class m_laporan extends CI_Model {
-	public function filter_laporan($tgl_mulai, $tgl_ahir)
-	{
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-		$this->db->select('*');
-		$this->db->from('transaksi');
-	$this->db->join('konsumen', 'transaksi.kode_konsumen = 
-		konsumen.kode_konsumen', 'left');
-	$this->db->join('paket', 'transaksi.kode_paket = paket.kode_paket
-			', 'left');
-	$this->db->where('transaksi.tgl_masuk>=', $tgl_mulai);
-	$this->db->where('transaksi.tgl_masuk<=', $tgl_ahir);
-	return $this->db->get()->result();
-	}
+class M_laporan extends CI_Model {
 
+    public function getLaporan()
+    {
+        $this->db->select('
+            transaksi.tgl_masuk,
+            transaksi.kode_transaksi,
+            konsumen.nama_konsumen,
+            paket.nama_paket,
+            transaksi.berat,
+            transaksi.grand_total,
+            transaksi.status
+        ');
+        $this->db->from('transaksi');
+        $this->db->join('konsumen', 'konsumen.kode_konsumen = transaksi.kode_konsumen');
+        $this->db->join('paket', 'paket.kode_paket = transaksi.kode_paket');
+
+        // JIKA PAKAI FILTER TANGGAL
+        if ($this->session->userdata('tanggal_mulai') && $this->session->userdata('tanggal_akhir')) {
+            $this->db->where('DATE(transaksi.tgl_masuk) >=', $this->session->userdata('tanggal_mulai'));
+            $this->db->where('DATE(transaksi.tgl_masuk) <=', $this->session->userdata('tanggal_akhir'));
+        }
+
+        return $this->db->get()->result();
+    }
 }

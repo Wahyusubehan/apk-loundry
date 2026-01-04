@@ -1,38 +1,63 @@
+<!DOCTYPE html>
 <html>
-    <head>
-          <title></title>
-		  <style>
-			th{
-				font-size: 14px;
-				font-family: sans-sarif;;
-			}
-		  </style>
+<head>
+    <meta charset="utf-8">
+    <title>Laporan Transaksi</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+        }
+        .wrapper {
+            width: 100%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 6px;
+        }
+        th {
+            background-color: #eee;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
-         <table width="750" border="0">
-           <tr>
-             <td style="text-align: center; font-size: 24px; font-weight: bold; font-family: sans-serif;">Laporan Transaksi</td>
-           </tr>
-		</table>
+<div class="wrapper">
 
-	<table width="750" border="0">
-           <tr>
-             <td style="text-align: center; font-size: 16px; font-family: sans-serif;">Dari Tanggal <?= mediumdate_indo($this->session->userdata('tanggal_mulai'));?> sampai tanggal <?= mediumdate_indo($this->session->userdata('tanggal_ahir'));?></td>
-           </tr>
-		</table> <br><br>
+    <div>
+        <h3 style="text-align:center;">LAPORAN TRANSAKSI</h3>
+    </div>
 
-		<table whidth="750" border="1">
-			<tr>
-				<th> Tanggal masuk </th>
-				<th> kode Transaksi</th>
-				<th> Konsumen</th>
-				<th>Paket</th>
-				<th>Berat (KG)</th>
-				<th>Grand Total</th>
-				<th>Status</th>
-			</tr>
-		</table>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Kode Transaksi</th>
+                    <th>Tanggal</th>
+                    <th>Grand Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <?php $no = 1; foreach ($laporan as $row) : ?>
+						<tr>
+                        <td><?= $no++; ?></td>
+                        <td><?= $row->kode_transaksi; ?></td>
+                        <td><?= $row->tgl_masuk; ?></td>
+                        <td><?= $row->grand_total; ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                
+            </tbody>
+        </table>
+    </div>
 
-	</body>
+</div>
+
+</body>
 </html>

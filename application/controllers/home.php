@@ -4,7 +4,8 @@ class home Extends CI_Controller{
 
 	public function index()
 	{
-		$this->load->view('frontend/header');
+		$isi['paket'] = $this->db->get('paket')->result();
+		$this->load->view('frontend/header', $isi);
 		$this->load->view('frontend/home');
 		$this->load->view('frontend/footer');
 	}

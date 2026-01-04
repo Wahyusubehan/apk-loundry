@@ -2,8 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 // LOAD DOMPDF BARU
-require_once APPPATH.'third_party/dompdf/autoload.inc.php';
-use Dompdf\Dompdf;
+require_once APPPATH.'third_party/dompdf/dompdf_config.inc.php';
 
 class Transaksi extends CI_Controller {
 
@@ -123,23 +122,57 @@ class Transaksi extends CI_Controller {
     // CETAK PDF (DOMPDF BARU)
     // ==========================
     public function cetak_pdf($kode_transaksi)
-    {
-        $data['transaksi'] = $this->M_transaksi->getByKode($kode_transaksi);
+{
+    $data['transaksi'] = $this->M_transaksi->getByKode($kode_transaksi);
 
-        $html = $this->load->view(
-            'backend/transaksi/pdf_detail_transaksi',
-            $data,
-            true
-        );
+    $html = $this->load->view(
+        'backend/transaksi/pdf_detail_transaksi',
+        $data,
+        true
+    );
 
-        $dompdf = new Dompdf();
-        $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
+    ob_start();
 
-        $dompdf->stream(
-            'Detail_Transaksi_'.$kode_transaksi.'.pdf',
-            ['Attachment' => false]
-        );
+    $dompdf = new DOMPDF();
+    $dompdf->load_html($html);
+    $dompdf->set_paper('A4', 'portrait');
+    $dompdf->render();
+
+    ob_end_clean(); // 🔥 WAJIB
+    $dompdf->stream("laporan-transaksi.pdf", array("Attachment" => false));
+    exit;
+}
+	 public function testpdf()
+{
+    ob_start();
+
+    $dompdf = new DOMPDF();
+    $dompdf->load_html('<h1>Dompdf versi lama berhasil</h1>');
+    $dompdf->set_paper('A4', 'portrait');
+    $dompdf->render();
+
+    ob_end_clean(); // 🔥 PENTING
+    $dompdf->stream("test.pdf", array("Attachment" => false));
+    exit;
+}
+
+public function test_dompdf()
+{
+    while (ob_get_level() > 0) {
+        ob_end_clean();
     }
+
+    ob_start();
+
+    require_once APPPATH.'third_party/dompdf/dompdf_config.inc.php';
+
+    $dompdf = new DOMPDF();
+    $dompdf->load_html('<html><body><h1>OK DOMPDF</h1></body></html>');
+    $dompdf->render();
+
+    ob_end_clean();
+    $dompdf->stream("test.pdf", array("Attachment" => false));
+}
+
+
 }

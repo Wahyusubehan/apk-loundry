@@ -13,22 +13,46 @@ class Laporan extends CI_Controller {
         $this->load->view('backend/dashboard', $isi);
     }
     public function cetak_laporan()
-    {
-		$this->load->library('dompdf_gen');
-        $tgl_mulai = $this->input->post('tanggal_mulai');
-        $tgl_ahir = $this->input->post('tanggal_ahir');
-        $isi['laporan'] = $this->m_laporan->filter_laporan($tgl_mulai, $tgl_ahir);
-		$this->session->set_userdata('tanggal_mulai', $tgl_mulai);
-		$this->session->set_userdata('tanggal_ahir', $tgl_ahir);
-		$this->load->view('backend/laporan/cetak_laporan');
-
-		$paper_size ='A4';
-		$orientation ='landscape';
-		$html = $this->output->get_output();
-		$this->dompdf->set_paper($paper_size, $orientation);
-
-		$this->dompdf->load_html($html);
-		$this->dompdf->render();
-		$this->dompdf->stream("Laporan Transaksi", array('Attachment'=>0));
+{
+    // 1. Bersihkan SEMUA output buffer
+    while (ob_get_level() > 0) {
+        ob_end_clean();
     }
+
+    // 2. Ambil data
+    $data['laporan'] = $this->m_laporan->getLaporan();
+
+    // 3. Render view ke HTML string
+    $html = $this->load->view(
+        'backend/laporan/cetak_laporan',
+        $data,
+        true
+    );
+
+    // 4. Load DOMPDF
+    require_once APPPATH.'third_party/dompdf/dompdf_config.inc.php';
+
+    // 5. Generate PDF
+    $dompdf = new DOMPDF();
+    $dompdf->load_html($html);
+    $dompdf->set_paper('A4', 'portrait');
+    $dompdf->render();
+
+    // 6. Tampilkan PDF
+    $dompdf->stream("laporan.pdf", ["Attachment" => false]);
+    exit;
+}
+
+
+
+
+
+public function test()
+{
+    $data['laporan'] = $this->m_laporan->getLaporan();
+    $this->load->view('backend/laporan/cetak_laporan', $data);
+}
+
+
+
 }
