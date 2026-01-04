@@ -10,10 +10,7 @@ class Home extends CI_Controller {
 	public function index()
 	{
 		$isi['slider'] = $this->db->get('slider')->result();
-<<<<<<< Updated upstream
 		$isi['paket'] = $this->db->get('paket')->result();
-=======
->>>>>>> Stashed changes
 		$this->load->view('frontend/header', $isi);
 		$this->load->view('frontend/home', $isi);
 		$this->load->view('frontend/footer');
