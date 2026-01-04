@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 // LOAD DOMPDF BARU
-require_once APPPATH.'third_party/dompdf/dompdf_config.inc.php';
+require_once APPPATH.'third_party/dompdf/autoload.inc.php';
 
 class Transaksi extends CI_Controller {
 

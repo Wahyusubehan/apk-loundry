@@ -12,17 +12,17 @@ class Dompdf_gen {
     }
 
     public function load_view($view, $data = array(), $filename = 'laporan', $paper = 'A4', $orientation = 'portrait')
-{
-    $CI =& get_instance();
+    {
+        $CI =& get_instance();
+		$CI->load->helper('tgl_indo_helper');
+        $CI->load->view($view, $data);
 
-    // Ambil HTML view sebagai STRING
-    $html = $CI->load->view($view, $data, TRUE);
+        $html = $CI->output->get_output();
 
-    $dompdf = new Dompdf();
-    $dompdf->setPaper($paper, $orientation);
-    $dompdf->loadHtml($html);
-    $dompdf->render();
-    $dompdf->stream($filename, array("Attachment" => 0));
-}
-
+        $dompdf = new Dompdf(); // ⬅️ INI SEKARANG VALID
+        $dompdf->setPaper($paper, $orientation);
+        $dompdf->loadHtml($html);
+        $dompdf->render();
+        $dompdf->stream($filename, array("Attachment" => 0));
+    }
 }

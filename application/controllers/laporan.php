@@ -13,22 +13,35 @@ class Laporan extends CI_Controller {
         $this->load->view('backend/dashboard', $isi);
     }
     public function cetak_laporan()
-    {
-		$this->load->library('dompdf_gen');
-        $tgl_mulai = $this->input->post('tanggal_mulai');
-        $tgl_ahir = $this->input->post('tanggal_ahir');
-        $isi['laporan'] = $this->m_laporan->filter_laporan($tgl_mulai, $tgl_ahir);
-		$this->session->set_userdata('tanggal_mulai', $tgl_mulai);
-		$this->session->set_userdata('tanggal_ahir', $tgl_ahir);
-		$this->load->view('backend/laporan/cetak_laporan');
+{
+	$this->load->library('dompdf_gen');
 
-		$paper_size ='A4';
-		$orientation ='landscape';
-		$html = $this->output->get_output();
-		$this->dompdf->set_paper($paper_size, $orientation);
+	 $tgl_mulai = $this->input->post('tanggal_mulai');
+    $tgl_ahir  = $this->input->post('tanggal_ahir');
 
-		$this->dompdf->load_html($html);
-		$this->dompdf->render();
-		$this->dompdf->stream("Laporan Transaksi", array('Attachment'=>0));
+
+	if (empty($tgl_mulai) || empty($tgl_ahir)) {
+        $this->session->set_flashdata('error', 'Tanggal laporan belum dipilih');
+        redirect('laporan');
     }
+
+	$tgl_mulai = date('Y-m-d', strtotime($tgl_mulai));
+    $tgl_ahir  = date('Y-m-d', strtotime($tgl_ahir));
+	$data['laporan'] = $this->m_laporan->get_laporan($tgl_mulai, $tgl_ahir);
+
+    
+
+    $this->session->set_userdata('tanggal_mulai', $tgl_mulai);
+    $this->session->set_userdata('tanggal_ahir', $tgl_ahir);
+
+    // PANGGIL DOMPDF LEWAT LIBRARY
+    $this->dompdf_gen->load_view(
+        'backend/laporan/cetak_laporan',
+        $data,
+        'Laporan_Transaksi',
+        'A4',
+        'landscape'
+    );
+}
+
 }
