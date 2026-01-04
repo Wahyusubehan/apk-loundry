@@ -39,25 +39,43 @@
 
 	<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 		<ol class="carousel-indicators">
-			<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-			<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+
+		<?php 
+		foreach ($slider as $key => $value) {
+			if ($key == 0) {?>
+				<li data-target="#carouselExampleIndicators" data-slide-to="<?= $key;?>" class="active"></li>
+			<?php }else{?>
+				<li data-target="#carouselExampleIndicators" data-slide-to="<?= $key;?>"></li>
+				<?php }
+		}
+		?>
 
 		</ol>
+
   <div class="carousel-inner">
-			<div class="carousel-item active">
-			<img class="d-block w-100 image-slider" src="<?= base_url()?>assets/images/slider/slide1.png" alt="First slide">
-			<div class="carousel-caption d-none d-md-block bg-caption">
-				<h5>Judul</h5>
-				<p>Deskripsi</p>
+
+		<?php 
+		foreach ($slider as $key => $value) {
+			if ($key == 0) {?>
+				<div class="carousel-item active">
+				<img class="d-block w-100 image-slider" src="<?= base_url()?>assets/images/slider/<?= $value->gambar_slider ;?> alt="First slide">
+				<div class="carousel-caption d-none d-md-block bg-caption">
+					<h5><?= $value->judul_slider;?></h5>
+					<p><?= $value->deskripsi_slider;?></p>
+				</div>
 			</div>
+			<?php }else{?>
+				<div class="carousel-item">
+				<img class="d-block w-100 image-slider" src="<?= base_url()?>assets/images/slider/<?= $value->gambar_slider ;?> alt="First slide">
+				<div class="carousel-caption d-none d-md-block bg-caption">
+					<h5><?= $value->judul_slider;?></h5>
+					<p><?= $value->deskripsi_slider;?></p>
+				</div>
 			</div>
-			<div class="carousel-item">
-			<img class="d-block w-100 image-slider" src="<?= base_url()?>assets/images/slider/slide2.png" alt="Second slide">
-			<div class="carousel-caption d-none d-md-block bg-caption">
-				<h5>Judul</h5>
-				<p>Deskripsi</p>
-			</div>
-		</div>
+			<?php }
+		}
+		?>
+
 		</div>
 		<a class="carousel-control-prev btn-slider" href="#carouselExampleControls" role="button" data-slide="prev">
 			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
