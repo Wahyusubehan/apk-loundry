@@ -7,7 +7,7 @@
 		<div class="col-md-8">
 			<h5>Laundry Online</h5>
 			<p>
-				laundry merupakan
+				Laundry adalah kegiatan atau layanan untuk mencuci, mengeringkan, menyetrika, dan merawat pakaian atau tekstil agar bersih, rapi, dan siap digunakan kembali.
 			</p>
 		</div>
 	</div>
