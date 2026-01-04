@@ -53,7 +53,7 @@
     Dari Tanggal
     <?= date('d-m-Y', strtotime($this->session->userdata('tanggal_mulai'))); ?>
     sampai tanggal
-    <?= date('d-m-Y', strtotime($this->session->userdata('tanggal_ahir'))); ?>
+    <?= date('d-m-Y', strtotime($this->session->userdata('tanggal_akhir'))); ?>
 </div>
 
 

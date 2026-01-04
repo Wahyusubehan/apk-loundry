@@ -29,7 +29,7 @@
 					$no = 1;
 					foreach ($paket as $pkt) {?>
 						<tr>
-							<td>><?= $no++;?></td>
+							<td><?= $no++;?></td>
 							<td><?= $pkt->nama_paket;?></td>
 							<td><?= "Rp.". number_format($pkt->harga_paket,0,'.','.');?></td>
 						</tr>
