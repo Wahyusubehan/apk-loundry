@@ -85,14 +85,14 @@
     </tr>
 </table>
 
-<br>
+<div style="height:20px;"></div>
 
 <table class="no-border">
     <tr>
-        <td width="60%"></td>
+        <td width="60%">&nbsp;</td>
         <td width="40%" style="text-align:center;">
             <p>Petugas</p>
-            <br><br>
+            <div style="height:40px;"></div>
             <p>( __________________ )</p>
         </td>
     </tr>
