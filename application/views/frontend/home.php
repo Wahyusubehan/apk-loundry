@@ -39,5 +39,5 @@
 			</table>
 		</div>
 	</div>
-	kamu sayang aku enggak?
+	
 </div>
