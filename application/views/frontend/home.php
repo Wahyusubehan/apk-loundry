@@ -15,9 +15,7 @@
 	<div class="row mb-5" data-aos="fade-up" data-aos-duration="1000">
 		<div class="col-md-12">
 			<h5>Jenis Paket</h5>
-			<p>
-				lore
-			</p>
+			
 			<table class="table table-bordered">
 			<thead>
 				<tr class="th-warna">
@@ -27,23 +25,19 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-				<th scope="row">1</th>
-				<td>Mark</td>
-				<td>@mdo</td>
-				</tr>
-				<tr>
-				<th scope="row">2</th>
-				<td>Jacob</td>
-				<td>@fat</td>
-				</tr>
-				<tr>
-				<th scope="row">3</th>
-				<td>Larry the Bird</td>
-				<td>@twitter</td>
-				</tr>
+				<?php
+					$no = 1;
+					foreach ($paket as $pkt) {?>
+						<tr>
+							<td>><?= $no++;?></td>
+							<td><?= $pkt->nama_paket;?></td>
+							<td><?= "Rp.". number_format($pkt->harga_paket,0,'.','.');?></td>
+						</tr>
+					<?php }
+				?>
 			</tbody>
 			</table>
 		</div>
 	</div>
+	kamu sayang aku enggak?
 </div>
