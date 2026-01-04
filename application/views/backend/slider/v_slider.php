@@ -62,7 +62,7 @@
                                    </td>
                                    <td>
                                       <a href="<?= base_url()?>slider/edit/<?= $sld->id_slider;?>" class="btn btn-success btn-sm">Edit</a>
-                                      <a href="" class="btn btn-danger btn-sm" onclick="return confirm('Yakin Mau Menghapus ?');">Delete</a>
+                                      <a href="<?= base_url()?>slider/delete/<?= $sld->id_slider;?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin Mau Menghapus ?');">Delete</a>
                                    </td>
                                 </tr>
                             <?php }

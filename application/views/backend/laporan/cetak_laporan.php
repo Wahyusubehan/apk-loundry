@@ -6,58 +6,89 @@
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
-            font-size: 12px;
+            font-size: 11px;
         }
-        .wrapper {
-            width: 100%;
+
+        h2 {
+            text-align: center;
+            margin-bottom: 5px;
         }
+
+        .periode {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
         }
-        th, td {
+
+        table th, table td {
             border: 1px solid #000;
-            padding: 6px;
-        }
-        th {
-            background-color: #eee;
+            padding: 6px 5px;
             text-align: center;
+            vertical-align: middle;
+        }
+
+        table th {
+            font-weight: bold;
+            background-color: #f2f2f2;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .text-right {
+            text-align: right;
         }
     </style>
 </head>
 <body>
 
-<div class="wrapper">
+<h2>Laporan Transaksi</h2>
 
-    <div>
-        <h3 style="text-align:center;">LAPORAN TRANSAKSI</h3>
-    </div>
-
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>No</th>
-                    <th>Kode Transaksi</th>
-                    <th>Tanggal</th>
-                    <th>Grand Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                    <?php $no = 1; foreach ($laporan as $row) : ?>
-						<tr>
-                        <td><?= $no++; ?></td>
-                        <td><?= $row->kode_transaksi; ?></td>
-                        <td><?= $row->tgl_masuk; ?></td>
-                        <td><?= $row->grand_total; ?></td>
-                    </tr>
-                    <?php endforeach; ?>
-                
-            </tbody>
-        </table>
-    </div>
-
+<div class="periode">
+    Dari Tanggal
+    <?= date('d-m-Y', strtotime($this->session->userdata('tanggal_mulai'))); ?>
+    sampai tanggal
+    <?= date('d-m-Y', strtotime($this->session->userdata('tanggal_ahir'))); ?>
 </div>
+
+
+<table>
+    <thead>
+        <tr>
+            <th width="15%">Tanggal Masuk</th>
+            <th width="15%">Kode Transaksi</th>
+            <th width="15%">Konsumen</th>
+            <th width="15%">Paket</th>
+            <th width="10%">Berat (KG)</th>
+            <th width="15%">Grand Total</th>
+            <th width="15%">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (!empty($laporan)) : ?>
+            <?php foreach ($laporan as $row) : ?>
+                <tr>
+                    <td><?= tgl_indo($row->tanggal_masuk); ?></td>
+                    <td><?= $row->kode_transaksi; ?></td>
+                    <td class="text-left"><?= $row->nama_konsumen; ?></td>
+                    <td><?= $row->nama_paket; ?></td>
+                    <td><?= $row->berat; ?></td>
+                    <td class="text-right">Rp <?= number_format($row->grand_total, 0, ',', '.'); ?></td>
+                    <td><?= $row->status; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else : ?>
+            <tr>
+                <td colspan="7">Data tidak ditemukan</td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
 
 </body>
 </html>
