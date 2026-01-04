@@ -73,7 +73,7 @@
         <?php if (!empty($laporan)) : ?>
             <?php foreach ($laporan as $row) : ?>
                 <tr>
-                    <td><?= tgl_indo($row->tanggal_masuk); ?></td>
+                    <td><?= date_indo($row->tgl_masuk); ?></td>
                     <td><?= $row->kode_transaksi; ?></td>
                     <td class="text-left"><?= $row->nama_konsumen; ?></td>
                     <td><?= $row->nama_paket; ?></td>

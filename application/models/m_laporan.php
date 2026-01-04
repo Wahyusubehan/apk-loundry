@@ -1,7 +1,7 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
 		class m_laporan extends CI_Model {
-	public function get_laporan($tgl_mulai, $tgl_ahir)
+	public function get_laporan($tgl_mulai, $tgl_akhir)
 	{
 
 		$this->db->select('
@@ -15,7 +15,7 @@
 	$this->db->join('paket', 'transaksi.kode_paket = paket.kode_paket
 			', 'left');
 	$this->db->where('transaksi.tgl_masuk>=', $tgl_mulai);
-	$this->db->where('transaksi.tgl_masuk<=', $tgl_ahir);
+	$this->db->where('transaksi.tgl_masuk<=', $tgl_akhir);
 	return $this->db->get()->result();
 	}
 
