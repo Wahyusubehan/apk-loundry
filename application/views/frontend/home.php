@@ -12,22 +12,7 @@
     </ol>
 
     <!-- Isi Slider -->
-    <div class="carousel-inner">
-        <?php $no = 0; foreach ($slider as $s) : ?>
-            <div class="carousel-item <?= $no == 0 ? 'active' : '' ?>">
-                <img src="<?= base_url('assets/images/slider/' . $s->gambar_slider) ?>"
-                     class="d-block w-100"
-                     style="height:450px; object-fit:cover;"
-                     alt="Slider <?= $no ?>">
-
-                <div class="carousel-caption d-none d-md-block bg-dark p-3 rounded">
-                    <h5><?= $s->judul_slider ?></h5>
-                    <p><?= $s->deskripsi_slider ?></p>
-                </div>
-            </div>
-        <?php $no++; endforeach; ?>
-    </div>
-
+    
     <!-- Tombol -->
     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon"></span>
