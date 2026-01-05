@@ -6,9 +6,28 @@
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
-            font-size: 11px;
+            font-size: 15px;
         }
 
+        /* ===== KOP ===== */
+        .kop {
+            margin-bottom: 10px;
+        }
+
+        .kop h3 {
+            margin: 0;
+        }
+
+        .kop p {
+            margin: 2px 0;
+        }
+
+        .garis {
+            border-top: 1px solid #000;
+            margin: 5px 0 15px;
+        }
+
+        /* ===== JUDUL ===== */
         h2 {
             text-align: center;
             margin-bottom: 5px;
@@ -19,6 +38,7 @@
             margin-bottom: 15px;
         }
 
+        /* ===== TABEL ===== */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -43,20 +63,54 @@
         .text-right {
             text-align: right;
         }
+
+        /* ===== REKAP ===== */
+        .rekap {
+            margin-top: 15px;
+            width: 40%;
+        }
+
+        .rekap td {
+            padding: 4px;
+        }
+
+        /* ===== TANDA TANGAN ===== */
+        .ttd {
+            margin-top: 40px;
+            width: 100%;
+            text-align: right;
+        }
+
+        .ttd .nama {
+            margin-top: 60px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
 
+<!-- ===== KOP ===== -->
+<div class="kop">
+    <h3>Laundry Online</h3>
+    <p>
+        WAZZFUN<br>
+        Telpon : 0858 7453 8473<br>
+        Email : LaundryOnline@gmail.com
+    </p>
+    <div class="garis"></div>
+</div>
+
+<!-- ===== JUDUL ===== -->
 <h2>Laporan Transaksi</h2>
 
 <div class="periode">
     Dari Tanggal
     <?= date('d-m-Y', strtotime($this->session->userdata('tanggal_mulai'))); ?>
     sampai tanggal
-    <?= date('d-m-Y', strtotime($this->session->userdata('tanggal_ahir'))); ?>
+    <?= date('d-m-Y', strtotime($this->session->userdata('tanggal_akhir'))); ?>
 </div>
 
-
+<!-- ===== TABEL ===== -->
 <table>
     <thead>
         <tr>
@@ -70,10 +124,21 @@
         </tr>
     </thead>
     <tbody>
+        <?php
+        $total_berat = 0;
+        $total_pendapatan = 0;
+        $total_transaksi = 0;
+        ?>
+
         <?php if (!empty($laporan)) : ?>
             <?php foreach ($laporan as $row) : ?>
+                <?php
+                $total_berat += $row->berat;
+                $total_pendapatan += $row->grand_total;
+                $total_transaksi++;
+                ?>
                 <tr>
-                    <td><?= tgl_indo($row->tanggal_masuk); ?></td>
+                    <td><?= date_indo($row->tgl_masuk); ?></td>
                     <td><?= $row->kode_transaksi; ?></td>
                     <td class="text-left"><?= $row->nama_konsumen; ?></td>
                     <td><?= $row->nama_paket; ?></td>
@@ -89,6 +154,35 @@
         <?php endif; ?>
     </tbody>
 </table>
+
+<!-- ===== REKAP TOTAL ===== -->
+<table class="rekap">
+    <tr>
+        <td>Total Transaksi</td>
+        <td>: <?= $total_transaksi; ?></td>
+    </tr>
+    <tr>
+        <td>Total Berat</td>
+        <td>: <?= $total_berat; ?> KG</td>
+    </tr>
+    <tr>
+        <td>Total Pendapatan</td>
+        <td>: Rp <?= number_format($total_pendapatan, 0, ',', '.'); ?></td>
+    </tr>
+</table>
+
+<!-- ===== TANDA TANGAN ===== -->
+<div class="ttd">
+    <p>
+        Wazzfun, <?= date('d F Y'); ?><br>
+        Wahyu Subehan,<br>
+        Admin Laundry
+    </p>
+
+    <div class="nama">
+        ( ____________________ )
+    </div>
+</div>
 
 </body>
 </html>

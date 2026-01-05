@@ -1,16 +1,21 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+	if ( ! defined('BASEPATH')) exit('No direct script access allowed');
       
-    if ( ! function_exists('tgl_indo'))
+    if ( ! function_exists('date_indo'))
     {
         function date_indo($tgl)
-        {
-            $ubah = gmdate($tgl, time()+60*60*8);
-            $pecah = explode("-",$ubah);
-            $tanggal = $pecah[2];
-            $bulan = bulan($pecah[1]);
-            $tahun = $pecah[0];
-            return $tanggal.' '.$bulan.' '.$tahun;
-        }
+{
+    if ($tgl == '0000-00-00' || empty($tgl)) return '-';
+
+    $bulan = [
+        1 => 'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun',
+        'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'
+    ];
+
+    $pecah = explode('-', substr($tgl, 0, 10));
+    return $pecah[2].' '.$bulan[(int)$pecah[1]].' '.$pecah[0];
+}
+
     }
       
     if ( ! function_exists('bulan'))
@@ -124,7 +129,7 @@
     {
         function mediumdate_indo($tgl)
         {
-            $ubah = gmdate($tgl, time()+60*60*8);
+            $ubah = date('Y-m-d', strtotime($tgl));
             $pecah = explode("-",$ubah);
             $tanggal = $pecah[2];
             $bulan = medium_bulan($pecah[1]);

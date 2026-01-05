@@ -5,7 +5,7 @@ class Laporan extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('m_laporan');
-		$this->load->helper('tgl_indo_helper');    }
+		$this->load->helper('tgl_indo');    }
     public function index()
     {
         $isi['content'] = 'backend/laporan/f_laporan';
@@ -32,7 +32,7 @@ class Laporan extends CI_Controller {
     
 
     $this->session->set_userdata('tanggal_mulai', $tgl_mulai);
-    $this->session->set_userdata('tanggal_ahir', $tgl_ahir);
+    $this->session->set_userdata('tanggal_akhir', $tgl_ahir);
 
     // PANGGIL DOMPDF LEWAT LIBRARY
     $this->dompdf_gen->load_view(
